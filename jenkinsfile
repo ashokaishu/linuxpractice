@@ -1,2 +1,18 @@
-pipeline{
+pipeline {
+    agent any
+    stages {
+        stage('version') {
+            steps {
+                // Execute a PowerShell command to get the version
+                powershell 'Get-Host | Select-Object Version'
+            }
+        }
+        stage('hello') {
+            steps {
+                // Execute a  java program named hello.java
+                bat 'javac hello.java'
+                bat 'java hello'
+            }
+        }
+    }
 }

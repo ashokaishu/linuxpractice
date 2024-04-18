@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    tools {
-        // Define the JDK tool with the desired name and installation path
-        jdk 'Oracle JDK'
-    }
     stages {
         stage('version') {
             steps {
@@ -13,10 +9,8 @@ pipeline {
         }
         stage('hello') {
             steps {
-                script {
-                    def javaHome = tool 'Oracle JDK'
-                    sh "${javaHome}/bin/javac hello.java"
-                }
+                sh 'java hello.java'
+                sh 'javac hello'
             }
         }
     }

@@ -3,16 +3,17 @@ pipeline {
     stages {
         stage('version') {
             steps {
-                // Execute a PowerShell command to get the version
-                powershell 'Get-Host | Select-Object Version'
+                // Execute a shell command to get the version
+                sh 'java -version'
             }
         }
         stage('hello') {
             steps {
-                // Execute a  java program named hello.java
-                bat 'javac hello.java'
-                bat 'java hello'
+                // Execute a Java program named hello.java
+                sh 'javac hello.java'
+                sh 'java hello'
             }
         }
     }
 }
+

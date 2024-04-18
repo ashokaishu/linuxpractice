@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         // Define the JDK tool with the desired name and installation path
-        jdk 'OpenJDK 17'
+        jdk 'OpenJDK'
     }
     stages {
         stage('version') {
@@ -14,7 +14,7 @@ pipeline {
         stage('hello') {
             steps {
                 script {
-                    def javaHome = tool 'OpenJDK 17'
+                    def javaHome = tool 'OpenJDK'
                     sh "${javaHome}/bin/javac hello.java"
                 }
             }

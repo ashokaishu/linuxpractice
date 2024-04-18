@@ -8,9 +8,10 @@ pipeline {
             }
         }
         stage('hello') {
+    stages {
+        stage('Compile') {
             steps {
-                // Execute a Java program named hello.java
-                sh 'javac hello.java'
+                sh '/usr/lib/jvm/java-17-openjdk-amd64/bin/javac hello.java'
                 sh 'java hello'
             }
         }

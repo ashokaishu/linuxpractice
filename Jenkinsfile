@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+        // Specify JDK 17 to be used by this Pipeline
+        jdk 'Oracle JDK'
+    }
     stages {
         stage('version') {
             steps {

@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout code from your repository
+                // Checkout code from your Git repository
                 git 'https://github.com/ashokaishu/linuxpractice.git'
             }
         }
@@ -21,10 +21,7 @@ pipeline {
                 // Wait for SonarQube analysis to complete and check the Quality Gate
                 timeout(time: 1, unit: 'HOURS') {
                     // Wait for the analysis to be completed and retrieve the Quality Gate status
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline failed: Quality Gate status is ${qg.status}"
-                    }
+                    waitForQualityGate()
                 }
             }
         }

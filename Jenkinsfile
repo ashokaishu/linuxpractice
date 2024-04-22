@@ -2,19 +2,28 @@ pipeline {
     agent any
 
     stages {
-        stage('Check SonarQube Connection') {
+        stage('Checkout') {
             steps {
-                script {
-                    def serverUrl = 'http://sonarqube.example.com' // Replace with your SonarQube server URL
-                    def serverVersion = ''
-                    
-                    try {
-                        def sonar = new SonarQubeServerBuilder(serverUrl).build()
-                        serverVersion = sonar.api.system.info().version
-                        println "Connected to SonarQube version ${serverVersion}"
-                    } catch (Exception e) {
-                        println "Failed to connect to SonarQube server at ${serverUrl}: ${e.message}"
-                        error("Connection to SonarQube failed")
+                // Checkout code from your repository
+                git 'https://github.com/ashokaishu/linuxpractice.git'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                // Run SonarQube analysis
+                withSonarQubeEnv('SonarQube') {
+                    sh 'mvn sonar:sonar' // Assuming Maven is your build tool
+                }
+            }
+        }
+        stage('Quality Gate') {
+            steps {
+                // Wait for SonarQube analysis to complete and check the Quality Gate
+                timeout(time: 1, unit: 'HOURS') {
+                    // Wait for the analysis to be completed and retrieve the Quality Gate status
+                    def qg = waitForQualityGate()
+                    if (qg.status != 'OK') {
+                        error "Pipeline failed: Quality Gate status is ${qg.status}"
                     }
                 }
             }

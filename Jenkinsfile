@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from your version control system
-                git 'https://github.com/your/repository.git'
+                git 'https://github.com/ashokaishu/linuxpractice.git/'
             }
         }
         stage('Build') {

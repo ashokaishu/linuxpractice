@@ -21,7 +21,7 @@ pipeline {
                 // Wait for SonarQube analysis to complete and check the Quality Gate
                 timeout(time: 1, unit: 'HOURS') {
                     // Wait for the analysis to be completed and retrieve the Quality Gate status
-                    waitForQualityGate()
+                    waitForQualityGate abortPipeline: true // Set abortPipeline parameter to true
                 }
             }
         }
